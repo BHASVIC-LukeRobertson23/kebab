@@ -302,8 +302,8 @@ def chickenchoice():
             score -= 1
         if b7 == 1:
             score += 1
-        if b8 == 1:
-            score += 0.5
+        if b9 == 1:
+            score += 0.75
     if b5 == 1:
         score -= 0.75
         if b7 == 1:
@@ -336,6 +336,11 @@ def chickenchoice():
         score -= 0.25
     if b8 and b9 and b10 == 1:
         score -= 2
+    if not b8 and not b9 and not b10:
+        score -= 3
+    if b2 == 1:
+        score += 1.25
+
     if score > 10:
         score == 9.5
 
