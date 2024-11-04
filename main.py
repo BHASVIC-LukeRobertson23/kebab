@@ -41,6 +41,7 @@ Chips = pygame.image.load("images/Chips.png").convert_alpha()
 Red = pygame.image.load("images/Red.png").convert_alpha()
 Green = pygame.image.load("images/Green.png").convert_alpha()
 Submit = pygame.image.load("images/Submit.png").convert_alpha()
+Background = pygame.image.load("images/kebabshopinside.png").convert_alpha()
 Green = pygame.transform.scale(Green, (25,25))
 Red = pygame.transform.scale(Red, (25,25))
 
@@ -80,6 +81,8 @@ sub = 0
 
 def buttonschangeval():
     global b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,sub
+
+    screen.blit(Background,(0,0))
 
     # check button 1
     if button1.draw(screen):
@@ -291,19 +294,18 @@ def lambchoice():
         if score > 10:
             score = 9.9
         return score
-
 def chickenchoice():
-    score = 0
+    score = 0.5
     if b3 == 1:
         score += 1
     if b4 == 1:
-        score -= 0.5
+        score -= 0.25
         if b5 == 1:
             score -= 1
         if b7 == 1:
             score += 1
         if b9 == 1:
-            score += 0.75
+            score += 1
     if b5 == 1:
         score -= 0.75
         if b7 == 1:
@@ -312,22 +314,26 @@ def chickenchoice():
             score -= 2
     if b6 == 1:
         if b4 == 1:
-            score += 0.75
+            score += 1.25
             if b10 == 1:
                 score += 1
     if b7 == 1:
-        score -= 0.25
+        score -= 0.5
     if b8 == 1:
         if b9 == 1:
-            score += 1.5
+            score += 1.75
         score += 0.75
     if b9 == 1:
         if b11 == 1:
-            score += 0.75
+            score += 1
         if b8 == 1:
             score -= 0.75
     if b10 == 1:
-        score += 1.75
+        score += 2
+        if b7 == 1:
+            score -= 1.5
+        if b5 == 1:
+            score += 1
     if b11 == 1:
         score += 1.25
     if b12 == 1:
@@ -345,8 +351,6 @@ def chickenchoice():
         score == 9.5
 
     return score
-
-
 def submitvals():
     global sub
     sub = 0
@@ -356,11 +360,6 @@ def submitvals():
     if b2 == 1:
         score = lambchoice()
     return score
-
-
-
-
-
 # gameloop
 
 txt = ""
@@ -391,10 +390,86 @@ while run:
         draw_text("Score: "+txt, font1, black,675 , 500)
 
     # event handler
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                submitvals()
+                if sub == 1:
+                    sub = 0
+                elif sub == 0:
+                    sub = 1
+            if event.key == pygame.K_1:
+                if b1 == 0:
+                    b1 = 1
+                    if b2 == 1:
+                        b2 = 0
+            if event.key == pygame.K_2:
+                if b2 == 0:
+                    b2 = 1
+                    if b1 == 1:
+                        b1 = 0
+            if event.key == pygame.K_3:
+                if b3 == 1:
+                    b3 = 0
+                elif b3 == 0:
+                    b3 = 1
+            if event.key == pygame.K_4:
+                if b4 == 1:
+                    b4 = 0
+                elif b4 == 0:
+                    b4 = 1
+            if event.key == pygame.K_5:
+                if b5 == 1:
+                    b5 = 0
+                elif b5 == 0:
+                    b5 = 1
+            if event.key == pygame.K_6:
+                if b6 == 1:
+                    b6 = 0
+                elif b6 == 0:
+                    b6 = 1
+            if event.key == pygame.K_7:
+                if b7 == 1:
+                    b7 = 0
+                elif b7 == 0:
+                    b7 = 1
+            if event.key == pygame.K_8:
+                if b8 == 1:
+                    b8 = 0
+                elif b8 == 0:
+                    b8 = 1
+            if event.key == pygame.K_9:
+                if b9 == 1:
+                    b9 = 0
+                elif b9 == 0:
+                    b9 = 1
+            if event.key == pygame.K_MINUS:
+                if b10 == 1:
+                    b10 = 0
+                elif b10 == 0:
+                    b10 = 1
+            if event.key == pygame.K_EQUALS:
+                b11 = 1
+                if b12 == 1:
+                    b12 = 0
+                if b13 == 1:
+                    b13 = 0
+            if event.key == pygame.K_BACKSPACE:
+                if b12 == 0:
+                    b12 = 1
+                    if b11 == 1:
+                        b11 = 0
+                    if b13 == 1:
+                        b13 = 0
+            if event.key == pygame.K_KP_PLUS:
+                if b13 == 0:
+                    b13 = 1
+                    if b11 == 1:
+                        b11 = 0
+                    if b12 == 1:
+                        b12 = 0
 
     pygame.display.update()
 
